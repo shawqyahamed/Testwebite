@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills &amp; Projects — Shawqy Ahamed</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">SA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="skills.html" class="active">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+  </nav>
+  <header class="page-hero">
+    <div class="container">
+      <h1>Skills &amp; Projects</h1>
+      <p>Technical capabilities built over years of hands-on enterprise network and security engineering.</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">&#127760;</div>
+          <h3>Network Engineering</h3>
+          <p>BGP, OSPF, IS-IS, MPLS, VLANs, STP, QoS, SD-WAN</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#128274;</div>
+          <h3>Security</h3>
+          <p>Zero Trust, Firewalls (Palo Alto, Fortinet), IDS/IPS, SIEM, PKI, VPN</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#9729;&#65039;</div>
+          <h3>Cloud Networking</h3>
+          <p>Azure Virtual WAN, AWS Transit Gateway, ExpressRoute, Direct Connect</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#9881;&#65039;</div>
+          <h3>Automation</h3>
+          <p>Python, Ansible, Netmiko, NAPALM, Terraform, Git</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#128225;</div>
+          <h3>Protocols</h3>
+          <p>TCP/IP, DNS, DHCP, BGP, EIGRP, OSPF, GRE, IPsec</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">&#128296;</div>
+          <h3>Tools</h3>
+          <p>Wireshark, SolarWinds, Splunk, Cisco DNA Center, Panorama</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-dark">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-header"><span class="project-tag">Security / Lab</span></div>
+          <h3>Zero Trust Network Lab</h3>
+          <p>Built a full zero-trust reference architecture in a home lab using Palo Alto VM-Series, FreeIPA for identity, and micro-segmentation policies. Documented in a 10-part blog series.</p>
+          <div class="project-links"><a href="#" class="link">GitHub &rarr;</a></div>
+        </article>
+        <article class="project-card">
+          <div class="project-header"><span class="project-tag">Automation</span></div>
+          <h3>BGP Route Reflector Automation</h3>
+          <p>Python + Netmiko tool to automate BGP neighbour state monitoring and generate structured reports via Jinja2 templates. Reduced manual audit time by 70%.</p>
+          <div class="project-links"><a href="#" class="link">GitHub &rarr;</a></div>
+        </article>
+        <article class="project-card">
+          <div class="project-header"><span class="project-tag">Cloud Networking</span></div>
+          <h3>Azure ExpressRoute Failover Solution</h3>
+          <p>Designed active/active ExpressRoute circuits with automatic BGP failover using Azure Route Server. Tested with simulated link failures and sub-30s convergence times.</p>
+          <div class="project-links"><a href="#" class="link">GitHub &rarr;</a></div>
+        </article>
+        <article class="project-card">
+          <div class="project-header"><span class="project-tag">Automation</span></div>
+          <h3>Ansible Network Config Manager</h3>
+          <p>Idempotent Ansible playbooks for multi-vendor (Cisco/Juniper/Arista) config deployment with pre/post validation and rollback capability.</p>
+          <div class="project-links"><a href="#" class="link">GitHub &rarr;</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <p>&copy; 2026 Shawqy Ahamed. Built with care.</p>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>
