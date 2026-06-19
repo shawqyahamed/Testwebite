@@ -1,35 +1,52 @@
-// Nav toggle
-const toggle = document.querySelector('.nav-toggle');
-const navLinks = document.querySelector('.nav-links');
-if (toggle && navLinks) {
-  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
 }
 
-// Active nav link based on current page filename
-(function() {
-  const page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('href') === page) a.classList.add('active');
-  });
-})();
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('mobileMenu')?.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu')?.classList.remove('open');
+}
 
-// Scroll fade-in
-const fadeObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+// Active nav link on scroll (single-page only)
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+if (sections.length && navLinks.length) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+}
 
 // Contact form feedback
-const form = document.getElementById('contact-form');
+const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
     const btn = form.querySelector('button[type=submit]');
     const orig = btn.textContent;
-    btn.textContent = 'Message Sent!';
-    btn.style.background = '#22c55e';
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#059669';
+    btn.style.borderColor = '#059669';
     btn.disabled = true;
-    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.disabled = false; form.reset(); }, 3500);
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      btn.disabled = false;
+      form.reset();
+    }, 4000);
   });
 }

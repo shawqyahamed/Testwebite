@@ -5,70 +5,130 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Shawqy Ahamed</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">SA</a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="experience.html">Experience</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="blog.html" class="active">Blog</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
-  </nav>
-  <header class="page-hero">
-    <div class="container">
-      <h1>Blog</h1>
-      <p>Technical writing on network engineering, security architecture, and infrastructure automation.</p>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">SA</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </header>
-  <section class="section">
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="blog-hero" style="margin-top:64px;">
     <div class="container">
-      <div class="blog-grid">
-        <article class="blog-card">
-          <div class="blog-card-meta">
-            <span class="blog-tag">Security</span>
-            <span class="blog-date">14 June 2026</span>
+      <span class="section-tag">Writing</span>
+      <h1>Blog</h1>
+      <p>Deep dives on network engineering, security architecture, cloud infrastructure, and automation.</p>
+    </div>
+  </div>
+
+  <div class="blog-list">
+    <div class="container">
+      <div class="blog-articles">
+
+        <a href="blog/zero-trust-guide.html" class="blog-article-card">
+          <div class="blog-article-num">01</div>
+          <div class="blog-article-content">
+            <div class="blog-article-tags">
+              <span>Zero Trust</span><span>Security</span><span>Enterprise</span>
+            </div>
+            <div class="blog-article-title">Zero Trust Architecture: A Complete Implementation Guide for Enterprise Networks</div>
+            <div class="blog-article-excerpt">Zero Trust is more than a buzzword — it's a fundamental shift in how we architect security. I walk through the full implementation from identity inventory and data flow mapping to Zscaler ZPA deployment and continuous monitoring.</div>
+            <div class="blog-article-footer">
+              <span class="blog-article-meta">December 2023 &nbsp;·&nbsp; 12 min read</span>
+              <span class="blog-article-cta">Read article →</span>
+            </div>
           </div>
-          <h3>A Practical Guide to Zero Trust Network Architecture</h3>
-          <p>Zero trust isn't a product &mdash; it's a philosophy. In this guide I walk through the core principles, implementation patterns, and the real-world lessons learned deploying zero trust for enterprise clients.</p>
-          <a href="blog/zero-trust-guide.html" class="blog-read-more">Read article &rarr;</a>
-        </article>
-        <article class="blog-card">
-          <div class="blog-card-meta">
-            <span class="blog-tag">Security</span>
-            <span class="blog-date">2 May 2026</span>
+        </a>
+
+        <a href="blog/future-of-network-security.html" class="blog-article-card">
+          <div class="blog-article-num">02</div>
+          <div class="blog-article-content">
+            <div class="blog-article-tags">
+              <span>Security</span><span>SASE</span><span>Strategy</span>
+            </div>
+            <div class="blog-article-title">The Future of Network Security: Moving Beyond the Perimeter</div>
+            <div class="blog-article-excerpt">The perimeter is dead. Cloud adoption, remote work, and sophisticated adversaries have shattered the old model. I explore why SASE and identity-first security are the only credible path forward for modern enterprises.</div>
+            <div class="blog-article-footer">
+              <span class="blog-article-meta">October 2023 &nbsp;·&nbsp; 8 min read</span>
+              <span class="blog-article-cta">Read article →</span>
+            </div>
           </div>
-          <h3>The Future of Network Security: AI-Driven Threat Detection</h3>
-          <p>Machine learning is reshaping how we detect and respond to threats. I explore the current state of AI in network security, practical use cases, and what engineers need to know to stay ahead.</p>
-          <a href="blog/future-of-network-security.html" class="blog-read-more">Read article &rarr;</a>
-        </article>
-        <article class="blog-card">
-          <div class="blog-card-meta">
-            <span class="blog-tag">Cloud Networking</span>
-            <span class="blog-date">18 March 2026</span>
+        </a>
+
+        <a href="blog/azure-expressroute.html" class="blog-article-card">
+          <div class="blog-article-num">03</div>
+          <div class="blog-article-content">
+            <div class="blog-article-tags">
+              <span>Azure</span><span>Cloud</span><span>BGP</span>
+            </div>
+            <div class="blog-article-title">Optimizing Cloud Connectivity with Azure ExpressRoute</div>
+            <div class="blog-article-excerpt">For latency-sensitive workloads, ExpressRoute is non-negotiable. I cover circuit design for 99.99% availability, active-active BGP configuration, BFD for sub-second failure detection, and FastPath for high-throughput performance.</div>
+            <div class="blog-article-footer">
+              <span class="blog-article-meta">September 2023 &nbsp;·&nbsp; 6 min read</span>
+              <span class="blog-article-cta">Read article →</span>
+            </div>
           </div>
-          <h3>Azure ExpressRoute Deep Dive: Routing, Redundancy &amp; Best Practices</h3>
-          <p>ExpressRoute is powerful but complex. This deep dive covers circuit design, BGP communities, route filtering, and how to architect for true redundancy without surprises.</p>
-          <a href="blog/azure-expressroute.html" class="blog-read-more">Read article &rarr;</a>
-        </article>
-        <article class="blog-card">
-          <div class="blog-card-meta">
-            <span class="blog-tag">Automation</span>
-            <span class="blog-date">5 January 2026</span>
+        </a>
+
+        <a href="blog/python-ansible-automation.html" class="blog-article-card">
+          <div class="blog-article-num">04</div>
+          <div class="blog-article-content">
+            <div class="blog-article-tags">
+              <span>Automation</span><span>Python</span><span>Ansible</span>
+            </div>
+            <div class="blog-article-title">Automating Network Operations with Python & Ansible</div>
+            <div class="blog-article-excerpt">How I cut 15 hours of weekly manual work down to under 2 hours using Python, Netmiko, NAPALM, and Ansible. Covers configuration templating with Jinja2, automated compliance checking, and building a multi-vendor deployment pipeline.</div>
+            <div class="blog-article-footer">
+              <span class="blog-article-meta">August 2023 &nbsp;·&nbsp; 5 min read</span>
+              <span class="blog-article-cta">Read article →</span>
+            </div>
           </div>
-          <h3>Automating Network Config Deployments with Python &amp; Ansible</h3>
-          <p>Manual config changes are the enemy of consistency. I show how I built a fully automated, multi-vendor config deployment pipeline using Python, Netmiko, and Ansible with built-in validation.</p>
-          <a href="blog/python-ansible-automation.html" class="blog-read-more">Read article &rarr;</a>
-        </article>
+        </a>
+
       </div>
     </div>
-  </section>
-  <footer class="footer">
-    <p>&copy; 2026 Shawqy Ahamed. Built with care.</p>
+  </div>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">SA</span>
+        <span>Shawqy Ahamed · Network & Security Engineer</span>
+      </div>
+      <div class="footer-right">
+        <a href="index.html">Home</a>
+        <a href="mailto:shawqyharis@gmail.com">Email</a>
+        <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Shawqy Ahamed. All rights reserved.</span>
+    </div>
   </footer>
+
   <script src="main.js"></script>
 </body>
 </html>

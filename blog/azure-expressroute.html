@@ -1,52 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Azure ExpressRoute Optimization — Shawqy Ahamed</title>
   <link rel="stylesheet" href="../style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <nav class="nav">
-    <a href="../index.html" class="nav-logo">SA</a>
-    <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li><li><a href="../experience.html">Experience</a></li>
-      <li><a href="../skills.html">Skills</a></li><li><a href="../blog.html">Blog</a></li><li><a href="../contact.html">Contact</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">SA</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#skills">Skills</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../blog.html">Blog</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </nav>
-  <div class="page">
-    <div class="container">
-      <div class="article-hero">
-        <a href="../blog.html" class="article-back">&#8592; Back to Blog</a>
-        <div class="tags"><span class="tag">Cloud</span><span class="tag">Azure</span><span class="tag">Infrastructure</span></div>
-        <h1 class="article-title">Optimizing Cloud Connectivity with Azure ExpressRoute</h1>
-        <div class="article-meta"><span>&#128197; September 2023</span><span>&#9200; 6 min read</span><span>&#128100; Shawqy Ahamed</span></div>
+  <div class="article-page">
+    <div class="article-page-hero">
+      <div class="container">
+        <a href="../blog.html" class="back-link">← Back to Blog</a>
+        <div class="blog-article-tags" style="margin-bottom:1rem;"><span>Azure</span><span>Cloud</span><span>BGP</span></div>
+        <h1>Optimizing Cloud Connectivity with Azure ExpressRoute</h1>
+        <div class="article-meta">
+          <span>📅 September 2023</span>
+          <span>⏱ 6 min read</span>
+          <span>👤 Shawqy Ahamed</span>
+        </div>
       </div>
-      <div class="article-body">
-        <p>When an enterprise commits to Azure as its cloud platform, the connectivity between on-premises infrastructure and Azure becomes a critical path dependency. Internet-based connections (VPN Gateway) work for low-bandwidth, latency-tolerant workloads, but for SAP HANA, SQL Managed Instance, or latency-sensitive financial applications, you need dedicated connectivity — and that means ExpressRoute.</p>
-        <div class="article-callout">ExpressRoute delivers consistent sub-10ms latency and predictable bandwidth that no Internet-based connection can match. For workloads where performance SLAs matter, it is not optional.</div>
-        <h2>ExpressRoute Fundamentals</h2>
-        <p>ExpressRoute provides a private, dedicated connection between your on-premises network and Microsoft's global network, bypassing the public Internet entirely. The connection is established through an ExpressRoute partner — a telco or network service provider — at one of Microsoft's peering locations. Your traffic never touches the public Internet between your network and Azure.</p>
-        <p>There are two peering types you'll typically configure: <strong>Azure Private Peering</strong> provides connectivity to Azure virtual networks and services deployed within VNets. <strong>Microsoft Peering</strong> provides connectivity to Microsoft public services like Microsoft 365, Dynamics 365, and Azure public endpoints.</p>
-        <h2>Designing for Redundancy</h2>
-        <p>A single ExpressRoute circuit, even with its built-in redundancy (each circuit has two physical paths), is not sufficient for business-critical workloads. The correct architecture for 99.99% availability is dual circuits from different providers, connecting to different ExpressRoute peering locations, with BGP configured for automatic failover.</p>
-        <h3>BGP Configuration for Active-Active</h3>
-        <p>Configure both circuits in active-active mode with equal BGP weight and local preference. Use AS-PATH prepending to prefer one circuit for outbound traffic while maintaining the other as an active hot standby. This gives you immediate failover — typically under 30 seconds — without any manual intervention.</p>
-        <ul>
-          <li>Primary circuit: Default BGP weight (100), no AS-PATH prepending</li>
-          <li>Secondary circuit: Default BGP weight (100), AS-PATH prepend x1 for outbound preference</li>
-          <li>Configure BFD (Bidirectional Forwarding Detection) for sub-second failure detection</li>
-          <li>Set hold-time to 90 seconds and keepalive to 30 seconds on BGP sessions</li>
-        </ul>
-        <h2>Performance Optimization</h2>
-        <p>Once the circuits are up, focus on traffic engineering. Use ExpressRoute Global Reach to connect your on-premises sites to each other through Microsoft's backbone — often faster than your own WAN for intercontinental traffic. Enable FastPath on your ExpressRoute Gateway to bypass the gateway for data-path traffic, reducing latency for high-throughput workloads.</p>
-        <p>Monitor circuit utilization carefully. ExpressRoute circuits come in fixed bandwidths (50Mbps to 100Gbps). Sustained utilization above 70% on a circuit indicates you need to either upgrade the circuit or implement traffic engineering to shift flows to the secondary circuit. Azure Monitor and Network Watcher give you the visibility you need to make these decisions proactively.</p>
-        <h2>The Results</h2>
-        <p>In the Azure WAN optimization project I led, the combination of dual ExpressRoute circuits, BGP route optimization, and FastPath configuration delivered a 40% reduction in average round-trip latency for workloads running in Azure. More importantly, we achieved 99.99% connectivity uptime over 18 months — with two transparent failover events that users never noticed.</p>
+    </div>
+    <div class="article-body-wrap">
+      <div class="container">
+        <div class="article-body">
+          <p>When an enterprise commits to Azure as its cloud platform, the connectivity between on-premises infrastructure and Azure becomes a critical path dependency. Internet-based connections work for low-bandwidth, latency-tolerant workloads, but for SAP HANA, SQL Managed Instance, or latency-sensitive financial applications, you need dedicated connectivity — and that means ExpressRoute.</p>
+          <div class="article-callout">ExpressRoute delivers consistent sub-10ms latency and predictable bandwidth that no Internet-based connection can match. For workloads where performance SLAs matter, it is not optional.</div>
+          <h2>ExpressRoute Fundamentals</h2>
+          <p>ExpressRoute provides a private, dedicated connection between your on-premises network and Microsoft's global network, bypassing the public Internet entirely. The connection is established through an ExpressRoute partner — a telco or network service provider — at one of Microsoft's peering locations.</p>
+          <p>There are two peering types you'll typically configure: <strong>Azure Private Peering</strong> provides connectivity to Azure virtual networks. <strong>Microsoft Peering</strong> provides connectivity to Microsoft public services like Microsoft 365 and Dynamics 365.</p>
+          <h2>Designing for Redundancy</h2>
+          <p>A single ExpressRoute circuit is not sufficient for business-critical workloads. The correct architecture for 99.99% availability is dual circuits from different providers, connecting to different peering locations, with BGP configured for automatic failover.</p>
+          <h3>BGP Configuration for Active-Active</h3>
+          <p>Configure both circuits in active-active mode with equal BGP weight and local preference. Use AS-PATH prepending to prefer one circuit for outbound traffic while maintaining the other as an active hot standby.</p>
+          <ul>
+            <li>Primary circuit: Default BGP weight (100), no AS-PATH prepending</li>
+            <li>Secondary circuit: Default BGP weight (100), AS-PATH prepend x1 for outbound preference</li>
+            <li>Configure BFD (Bidirectional Forwarding Detection) for sub-second failure detection</li>
+            <li>Set hold-time to 90 seconds and keepalive to 30 seconds on BGP sessions</li>
+          </ul>
+          <h2>Performance Optimization</h2>
+          <p>Use ExpressRoute Global Reach to connect your on-premises sites to each other through Microsoft's backbone. Enable FastPath on your ExpressRoute Gateway to bypass the gateway for data-path traffic, reducing latency for high-throughput workloads.</p>
+          <h2>The Results</h2>
+          <p>In the Azure WAN optimization project I led, dual ExpressRoute circuits with BGP route optimization and FastPath delivered a 40% reduction in average round-trip latency. We achieved 99.99% connectivity uptime over 18 months — with two transparent failover events that users never noticed.</p>
+        </div>
       </div>
     </div>
   </div>
-  <footer class="footer"><p>&copy; 2026 Shawqy Ahamed &nbsp;&middot;&nbsp; <a href="../contact.html">Get in Touch</a></p></footer>
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-left"><span class="footer-logo">SA</span><span>Shawqy Ahamed · Network & Security Engineer</span></div>
+      <div class="footer-right">
+        <a href="../index.html">Home</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Shawqy Ahamed. All rights reserved.</span></div>
+  </footer>
   <script src="../main.js"></script>
 </body>
 </html>

@@ -3,57 +3,390 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shawqy Ahamed — Network &amp; Security Engineer</title>
+  <title>Shawqy Ahamed — Network & Security Engineer</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">SA</a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="experience.html">Experience</a></li>
-      <li><a href="skills.html">Skills</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">SA</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="burger" aria-label="Menu" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="#experience" onclick="closeMenu()">Experience</a>
+      <a href="#skills" onclick="closeMenu()">Skills</a>
+      <a href="#projects" onclick="closeMenu()">Projects</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
   </nav>
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <p class="hero-greeting">Hi, I'm</p>
-      <h1 class="hero-name">Shawqy Ahamed</h1>
-      <p class="hero-role">Network &amp; Security Engineer</p>
-      <p class="hero-bio">Specializing in enterprise network architecture, zero-trust security frameworks, and infrastructure automation. I design and defend the networks that power modern business.</p>
-      <div class="hero-actions">
-        <a href="skills.html" class="btn btn-primary">View My Work</a>
-        <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">👋 Hello, I'm</p>
+      <h1 class="hero-name">Shawqy<br>Ahamed</h1>
+      <p class="hero-role">Network & Security Engineer</p>
+      <p class="hero-bio">I design, build, and secure enterprise networks. From BGP routing and zero-trust architecture to cloud infrastructure and automation — I make networks fast, resilient, and safe.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">See My Work</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="mailto:shawqyharis@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+        <a href="blog.html" title="Blog">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </a>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="avatar-ring">
-        <div class="avatar">SA</div>
-      </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
-  <section class="section section-dark" id="about">
+
+  <!-- ABOUT -->
+  <section id="about">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-grid">
+      <div class="section-header">
+        <span class="section-tag">About</span>
+        <h2>The engineer behind the network</h2>
+      </div>
+      <div class="about-layout">
         <div class="about-text">
-          <p>I'm a network and security engineer with hands-on experience designing, deploying, and hardening enterprise infrastructure. My work spans from BGP routing and MPLS switching to zero-trust architecture and cloud network security.</p>
-          <p>Outside of work I write technical articles, contribute to open-source tooling, and stay current with the evolving threat landscape through continuous learning and lab work.</p>
+          <p>I'm a network and security engineer with 5+ years of experience designing and hardening enterprise infrastructure. My work spans everything from BGP routing and MPLS switching to zero-trust architecture, cloud networking, and Python-driven automation.</p>
+          <p>I currently lead network security deployments at Accenture for FTSE 100 clients, bringing infrastructure and security together in ways that actually improve user experience — not just compliance checkboxes.</p>
+          <p>When I'm not in a network diagram, I'm writing technical articles, building automation tooling, and exploring the intersection of AI and network operations.</p>
+          <div class="cert-row">
+            <span class="cert-badge">Cisco CCNP Enterprise</span>
+            <span class="cert-badge">CompTIA Security+</span>
+            <span class="cert-badge">B.Sc. Computer Networks</span>
+          </div>
         </div>
         <div class="about-stats">
-          <div class="stat"><span class="stat-number">5+</span><span class="stat-label">Years Experience</span></div>
-          <div class="stat"><span class="stat-number">30+</span><span class="stat-label">Networks Secured</span></div>
-          <div class="stat"><span class="stat-number">15+</span><span class="stat-label">Certifications</span></div>
+          <div class="stat-card">
+            <div class="stat-num">5+</div>
+            <div class="stat-label">Years in Enterprise Networking</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Networks Designed & Secured</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Enterprise Sites Deployed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">40%</div>
+            <div class="stat-label">Incident Response Time Reduced</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  <footer class="footer">
-    <p>&copy; 2026 Shawqy Ahamed. Built with care.</p>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Experience</span>
+        <h2>Where I've worked & studied</h2>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-marker work"></div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Senior Network Security Engineer</div>
+                <div class="tl-org">Accenture</div>
+              </div>
+              <div class="tl-right">
+                <span class="tl-date">2023 — Present</span>
+                <span class="tl-type work">Work</span>
+              </div>
+            </div>
+            <p class="tl-desc">Lead the design and deployment of zero-trust network architectures for FTSE 100 clients. Manage BGP peering sessions across multi-AS environments, oversee firewall policy lifecycle, and drive automation initiatives using Ansible and Python.</p>
+            <div class="tl-tags">
+              <span>Zero Trust</span><span>BGP</span><span>Ansible</span><span>Python</span><span>Firewall</span>
+            </div>
+            <div class="tl-highlight">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+              Reduced incident response time by 40% through automated alerting pipelines
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-marker work"></div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Network Engineer</div>
+                <div class="tl-org">BT Group</div>
+              </div>
+              <div class="tl-right">
+                <span class="tl-date">2021 — 2023</span>
+                <span class="tl-type work">Work</span>
+              </div>
+            </div>
+            <p class="tl-desc">Maintained and expanded MPLS core networks. Configured Cisco IOS-XE and Juniper JunOS devices. Implemented QoS policies for VoIP prioritization across 50+ enterprise sites. Led migration of legacy OSPF domains to IS-IS.</p>
+            <div class="tl-tags">
+              <span>MPLS</span><span>OSPF</span><span>IS-IS</span><span>QoS</span><span>Cisco</span><span>Juniper</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-marker work"></div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">Junior Network Analyst</div>
+                <div class="tl-org">Computacenter</div>
+              </div>
+              <div class="tl-right">
+                <span class="tl-date">2019 — 2021</span>
+                <span class="tl-type work">Work</span>
+              </div>
+            </div>
+            <p class="tl-desc">Part-time during degree. Assisted senior engineers in firewall rule audits, network monitoring with SolarWinds, and L3 network issue escalation.</p>
+            <div class="tl-tags">
+              <span>SolarWinds</span><span>Firewall Audit</span><span>L3 Support</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-marker edu"></div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <div class="tl-role">B.Sc. Computer Networks & Security</div>
+                <div class="tl-org">University of East London</div>
+              </div>
+              <div class="tl-right">
+                <span class="tl-date">2018 — 2021</span>
+                <span class="tl-type edu">Education</span>
+              </div>
+            </div>
+            <p class="tl-desc">Graduated with First Class Honours. Thesis on adaptive intrusion detection using ML-based anomaly scoring in SDN environments.</p>
+            <div class="tl-tags">
+              <span>First Class Honours</span><span>SDN</span><span>ML Security</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Skills</span>
+        <h2>What I work with</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-icon">🌐</div>
+          <h3>Network Engineering</h3>
+          <div class="skill-pills">
+            <span>BGP</span><span>OSPF</span><span>IS-IS</span><span>MPLS</span>
+            <span>SD-WAN</span><span>VLANs</span><span>STP</span><span>QoS</span>
+            <span>GRE</span><span>IPsec</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-icon">🔐</div>
+          <h3>Security</h3>
+          <div class="skill-pills">
+            <span>Zero Trust</span><span>Palo Alto</span><span>Fortinet</span>
+            <span>Zscaler ZPA</span><span>IDS/IPS</span><span>SIEM</span>
+            <span>PKI</span><span>VPN</span><span>Conditional Access</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-icon">☁️</div>
+          <h3>Cloud & Infrastructure</h3>
+          <div class="skill-pills">
+            <span>Azure Virtual WAN</span><span>ExpressRoute</span>
+            <span>AWS Transit Gateway</span><span>Azure AD</span>
+            <span>Microsoft Sentinel</span><span>Direct Connect</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-icon">⚙️</div>
+          <h3>Automation & Tools</h3>
+          <div class="skill-pills">
+            <span>Python</span><span>Ansible</span><span>Netmiko</span>
+            <span>NAPALM</span><span>Terraform</span><span>Jinja2</span>
+            <span>Git</span><span>Wireshark</span><span>Splunk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Projects</span>
+        <h2>Things I've built</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-num">01</div>
+          <div class="project-cat">Security · Lab</div>
+          <h3>Zero Trust Network Lab</h3>
+          <p>Built a complete zero-trust reference architecture in a home lab using Palo Alto VM-Series, FreeIPA for identity management, and micro-segmentation policies. Documented in a 10-part technical blog series.</p>
+          <div class="project-stack">
+            <span>Palo Alto</span><span>FreeIPA</span><span>ZTNA</span><span>Micro-segmentation</span>
+          </div>
+          <a href="#" class="project-link">View on GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">02</div>
+          <div class="project-cat">Automation</div>
+          <h3>BGP Route Reflector Automation</h3>
+          <p>Python + Netmiko tool that automates BGP neighbour state monitoring and generates structured compliance reports via Jinja2 templates. Deployed across 200+ devices, reducing manual audit time by 70%.</p>
+          <div class="project-stack">
+            <span>Python</span><span>Netmiko</span><span>Jinja2</span><span>BGP</span>
+          </div>
+          <a href="#" class="project-link">View on GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">03</div>
+          <div class="project-cat">Cloud Networking</div>
+          <h3>Azure ExpressRoute Failover</h3>
+          <p>Designed active/active dual ExpressRoute circuits with automatic BGP failover using Azure Route Server. Achieved sub-30 second convergence and 99.99% uptime across 18 months of production operation.</p>
+          <div class="project-stack">
+            <span>Azure</span><span>ExpressRoute</span><span>BGP</span><span>Route Server</span>
+          </div>
+          <a href="#" class="project-link">View on GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">04</div>
+          <div class="project-cat">Automation</div>
+          <h3>Ansible Network Config Manager</h3>
+          <p>Idempotent Ansible playbooks for multi-vendor configuration deployment across Cisco, Juniper, and Arista devices. Includes pre/post validation and automatic rollback on failure.</p>
+          <div class="project-stack">
+            <span>Ansible</span><span>Cisco</span><span>Juniper</span><span>Arista</span>
+          </div>
+          <a href="#" class="project-link">View on GitHub →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Contact</span>
+        <h2>Let's work together</h2>
+        <p class="section-sub">Open to new opportunities, collaborations, and conversations about networking and security.</p>
+      </div>
+      <div class="contact-layout">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <a href="mailto:shawqyharis@gmail.com" class="contact-value">shawqyharis@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-value">United Kingdom</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💼</div>
+            <div>
+              <div class="contact-label">GitHub</div>
+              <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener" class="contact-value">github.com/shawqyahamed</a>
+            </div>
+          </div>
+          <div class="contact-note">
+            I typically respond within 24 hours. For urgent inquiries, email is best.
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Name</label>
+              <input type="text" id="fname" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="femail">Email</label>
+              <input type="email" id="femail" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fsubject">Subject</label>
+            <input type="text" id="fsubject" name="subject" placeholder="What's this about?" />
+          </div>
+          <div class="form-group">
+            <label for="fmessage">Message</label>
+            <textarea id="fmessage" name="message" placeholder="Tell me more..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">SA</span>
+        <span>Shawqy Ahamed · Network & Security Engineer</span>
+      </div>
+      <div class="footer-right">
+        <a href="blog.html">Blog</a>
+        <a href="mailto:shawqyharis@gmail.com">Email</a>
+        <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Shawqy Ahamed. All rights reserved.</span>
+    </div>
   </footer>
+
   <script src="main.js"></script>
 </body>
 </html>
