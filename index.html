@@ -45,6 +45,11 @@
       <h1 class="hero-name">Shawqy<br>Ahamed</h1>
       <p class="hero-role">Network & Security Engineer</p>
       <p class="hero-bio">I design, build, and secure enterprise networks. From BGP routing and zero-trust architecture to cloud infrastructure and automation — I make networks fast, resilient, and safe.</p>
+      <div class="hero-certs">
+        <span>Cisco CCNP Enterprise</span>
+        <span>CompTIA Security+</span>
+        <span>B.Sc. Computer Networks</span>
+      </div>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary">See My Work</a>
         <a href="#contact" class="btn btn-ghost">Get in Touch</a>
@@ -79,11 +84,6 @@
           <p>I'm a network and security engineer with 5+ years of experience designing and hardening enterprise infrastructure. My work spans everything from BGP routing and MPLS switching to zero-trust architecture, cloud networking, and Python-driven automation.</p>
           <p>I currently lead network security deployments at Accenture for FTSE 100 clients, bringing infrastructure and security together in ways that actually improve user experience — not just compliance checkboxes.</p>
           <p>When I'm not in a network diagram, I'm writing technical articles, building automation tooling, and exploring the intersection of AI and network operations.</p>
-          <div class="cert-row">
-            <span class="cert-badge">Cisco CCNP Enterprise</span>
-            <span class="cert-badge">CompTIA Security+</span>
-            <span class="cert-badge">B.Sc. Computer Networks</span>
-          </div>
         </div>
         <div class="about-stats">
           <div class="stat-card">
@@ -132,10 +132,6 @@
             <p class="tl-desc">Lead the design and deployment of zero-trust network architectures for FTSE 100 clients. Manage BGP peering sessions across multi-AS environments, oversee firewall policy lifecycle, and drive automation initiatives using Ansible and Python.</p>
             <div class="tl-tags">
               <span>Zero Trust</span><span>BGP</span><span>Ansible</span><span>Python</span><span>Firewall</span>
-            </div>
-            <div class="tl-highlight">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-              Reduced incident response time by 40% through automated alerting pipelines
             </div>
           </div>
         </div>
@@ -211,37 +207,33 @@
         <span class="section-tag">Skills</span>
         <h2>What I work with</h2>
       </div>
-      <div class="skills-grid">
-        <div class="skill-group">
-          <div class="skill-group-icon">🌐</div>
-          <h3>Network Engineering</h3>
+      <div class="skills-table">
+        <div class="skill-row">
+          <div class="skill-cat">Network Engineering</div>
           <div class="skill-pills">
             <span>BGP</span><span>OSPF</span><span>IS-IS</span><span>MPLS</span>
             <span>SD-WAN</span><span>VLANs</span><span>STP</span><span>QoS</span>
             <span>GRE</span><span>IPsec</span>
           </div>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-icon">🔐</div>
-          <h3>Security</h3>
+        <div class="skill-row">
+          <div class="skill-cat">Security</div>
           <div class="skill-pills">
             <span>Zero Trust</span><span>Palo Alto</span><span>Fortinet</span>
             <span>Zscaler ZPA</span><span>IDS/IPS</span><span>SIEM</span>
             <span>PKI</span><span>VPN</span><span>Conditional Access</span>
           </div>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-icon">☁️</div>
-          <h3>Cloud & Infrastructure</h3>
+        <div class="skill-row">
+          <div class="skill-cat">Cloud</div>
           <div class="skill-pills">
             <span>Azure Virtual WAN</span><span>ExpressRoute</span>
             <span>AWS Transit Gateway</span><span>Azure AD</span>
             <span>Microsoft Sentinel</span><span>Direct Connect</span>
           </div>
         </div>
-        <div class="skill-group">
-          <div class="skill-group-icon">⚙️</div>
-          <h3>Automation & Tools</h3>
+        <div class="skill-row">
+          <div class="skill-cat">Automation</div>
           <div class="skill-pills">
             <span>Python</span><span>Ansible</span><span>Netmiko</span>
             <span>NAPALM</span><span>Terraform</span><span>Jinja2</span>
@@ -262,49 +254,82 @@
       <div class="projects-grid">
 
         <div class="project-card">
-          <div class="project-num">01</div>
           <div class="project-cat">Security · Lab</div>
           <h3>Zero Trust Network Lab</h3>
-          <p>Built a complete zero-trust reference architecture in a home lab using Palo Alto VM-Series, FreeIPA for identity management, and micro-segmentation policies. Documented in a 10-part technical blog series.</p>
+          <p>Complete zero-trust reference architecture using Palo Alto VM-Series, FreeIPA, and micro-segmentation policies.</p>
           <div class="project-stack">
             <span>Palo Alto</span><span>FreeIPA</span><span>ZTNA</span><span>Micro-segmentation</span>
           </div>
-          <a href="#" class="project-link">View on GitHub →</a>
         </div>
 
         <div class="project-card">
-          <div class="project-num">02</div>
           <div class="project-cat">Automation</div>
           <h3>BGP Route Reflector Automation</h3>
-          <p>Python + Netmiko tool that automates BGP neighbour state monitoring and generates structured compliance reports via Jinja2 templates. Deployed across 200+ devices, reducing manual audit time by 70%.</p>
+          <p>Python + Netmiko tool automating BGP neighbour monitoring and compliance reports. Deployed across 200+ devices.</p>
           <div class="project-stack">
             <span>Python</span><span>Netmiko</span><span>Jinja2</span><span>BGP</span>
           </div>
-          <a href="#" class="project-link">View on GitHub →</a>
         </div>
 
         <div class="project-card">
-          <div class="project-num">03</div>
           <div class="project-cat">Cloud Networking</div>
           <h3>Azure ExpressRoute Failover</h3>
-          <p>Designed active/active dual ExpressRoute circuits with automatic BGP failover using Azure Route Server. Achieved sub-30 second convergence and 99.99% uptime across 18 months of production operation.</p>
+          <p>Active/active dual ExpressRoute circuits with BGP failover via Azure Route Server. 99.99% uptime over 18 months.</p>
           <div class="project-stack">
             <span>Azure</span><span>ExpressRoute</span><span>BGP</span><span>Route Server</span>
           </div>
-          <a href="#" class="project-link">View on GitHub →</a>
         </div>
 
         <div class="project-card">
-          <div class="project-num">04</div>
           <div class="project-cat">Automation</div>
           <h3>Ansible Network Config Manager</h3>
-          <p>Idempotent Ansible playbooks for multi-vendor configuration deployment across Cisco, Juniper, and Arista devices. Includes pre/post validation and automatic rollback on failure.</p>
+          <p>Idempotent multi-vendor Ansible playbooks with pre/post validation and automatic rollback on failure.</p>
           <div class="project-stack">
             <span>Ansible</span><span>Cisco</span><span>Juniper</span><span>Arista</span>
           </div>
-          <a href="#" class="project-link">View on GitHub →</a>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG PREVIEW -->
+  <section id="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Blog</span>
+        <h2>Latest writing</h2>
+        <p class="section-sub">Deep dives on network engineering, security, and automation.</p>
+      </div>
+      <div class="blog-preview-grid">
+
+        <a href="blog/zero-trust-guide.html" class="blog-preview-card">
+          <div class="blog-preview-tags"><span>Zero Trust</span><span>Security</span></div>
+          <div class="blog-preview-title">Zero Trust Architecture: A Complete Implementation Guide</div>
+          <div class="blog-preview-meta">December 2023 · 12 min read</div>
+        </a>
+
+        <a href="blog/future-of-network-security.html" class="blog-preview-card">
+          <div class="blog-preview-tags"><span>Security</span><span>SASE</span></div>
+          <div class="blog-preview-title">The Future of Network Security: Moving Beyond the Perimeter</div>
+          <div class="blog-preview-meta">October 2023 · 8 min read</div>
+        </a>
+
+        <a href="blog/azure-expressroute.html" class="blog-preview-card">
+          <div class="blog-preview-tags"><span>Azure</span><span>BGP</span></div>
+          <div class="blog-preview-title">Optimizing Cloud Connectivity with Azure ExpressRoute</div>
+          <div class="blog-preview-meta">September 2023 · 6 min read</div>
+        </a>
+
+        <a href="blog/python-ansible-automation.html" class="blog-preview-card">
+          <div class="blog-preview-tags"><span>Automation</span><span>Python</span></div>
+          <div class="blog-preview-title">Automating Network Operations with Python & Ansible</div>
+          <div class="blog-preview-meta">August 2023 · 5 min read</div>
+        </a>
+
+      </div>
+      <div style="text-align:center;margin-top:2.5rem;">
+        <a href="blog.html" class="btn btn-ghost">View all articles →</a>
       </div>
     </div>
   </section>
