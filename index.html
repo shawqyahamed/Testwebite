@@ -42,7 +42,7 @@ main{position:relative;z-index:2;}
 
 /* Header */
 .site-head{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:baseline;justify-content:space-between;padding:2rem 6vw;mix-blend-mode:difference;}
-.logo{font-family:var(--font-display);font-weight:800;letter-spacing:0.34em;font-size:0.95rem;}
+.logo{font-family:var(--font-display);font-weight:800;letter-spacing:0.34em;font-size:0.95rem;text-decoration:none;color:inherit;cursor:pointer;}
 
 /* Hero */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;}
@@ -149,12 +149,6 @@ body.has-cursor .progress,body:not(.loading) .progress{opacity:1;transition:opac
 .grain{position:fixed;inset:-100%;z-index:60;pointer-events:none;opacity:0.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 0.9s steps(6) infinite;}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 
-/* Back-to-top SA button */
-.back-top{position:fixed;bottom:3.5vh;right:6vw;z-index:40;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;background:transparent;border:1px solid rgba(232,236,245,0.2);font-family:var(--font-display);font-weight:800;font-size:0.75rem;letter-spacing:0.18em;color:var(--star);cursor:pointer;text-decoration:none;opacity:0;transform:translateY(12px);transition:border-color 0.4s,box-shadow 0.4s,color 0.4s;}
-.back-top.visible{opacity:1;transform:translateY(0);transition:opacity 0.5s ease,transform 0.5s cubic-bezier(0.16,1,0.3,1),border-color 0.4s,box-shadow 0.4s,color 0.4s;}
-.back-top:hover{border-color:rgba(70,229,255,0.7);box-shadow:0 0 24px rgba(70,229,255,0.2);color:var(--cyan);}
-@media(max-width:768px){.back-top{bottom:5vh;right:6vw;width:38px;height:38px;font-size:0.65rem;}}
-
 /* Cursor */
 .cursor-dot,.cursor-tail{position:fixed;top:0;left:0;z-index:100;pointer-events:none;border-radius:50%;translate:-50% -50%;opacity:0;}
 body.has-cursor .cursor-dot,body.has-cursor .cursor-tail{opacity:1;}
@@ -204,7 +198,7 @@ body.cursor-hover .cursor-tail{scale:1.9;}
 </div>
 
 <header class="site-head">
-  <div class="logo">SA</div>
+  <a href="#hero" class="logo" id="logoHome" aria-label="Back to top">SA</a>
   <div class="head-meta mono">NETWORK &amp; SECURITY ENGINEER&nbsp;&nbsp;·&nbsp;&nbsp;UK</div>
 </header>
 
@@ -493,7 +487,7 @@ function revealHero() {
   return tl;
 }
 function runLoader() {
-  const done=()=>{loaderEl.style.display='none';document.body.classList.remove('loading');lenis?.start();ScrollTrigger.refresh();};
+  const done=()=>{loaderEl.style.display='none';document.body.classList.remove('loading');lenis?.start();window.scrollTo(0,0);lenis?.scrollTo(0,{immediate:true});ScrollTrigger.refresh();};
   if (REDUCED) { countEl.textContent='100'; gsap.to(loaderEl,{autoAlpha:0,duration:0.5,onComplete:done}); revealHero(); return; }
   const counter={v:0};
   gsap.timeline()
@@ -609,14 +603,7 @@ if(!REDUCED&&!IS_MOBILE&&wrap&&btn){
   wrap.addEventListener('mouseleave',()=>{xTo(0);yTo(0);lxTo(0);lyTo(0);});
 }
 btn?.addEventListener('click',()=>{window.location.href='mailto:shawqyharis@gmail.com';});
-// Back-to-top SA button
-{
-  const backTop=document.getElementById('backTop');
-  if(backTop){
-    ScrollTrigger.create({start:'top -15%',onEnter:()=>backTop.classList.add('visible'),onLeaveBack:()=>backTop.classList.remove('visible')});
-    backTop.addEventListener('click',(e)=>{e.preventDefault();lenis.scrollTo(0,{duration:1.8,easing:(t)=>1-Math.pow(1-t,4)});});
-  }
-}
+document.getElementById('logoHome')?.addEventListener('click',(e)=>{e.preventDefault();lenis.scrollTo(0,{duration:1.8,easing:(t)=>1-Math.pow(1-t,4)});});
 gsap.from(['.footer-kicker','.footer-title','.footer-links','.magnetic-wrap'],{autoAlpha:0,y:REDUCED?0:40,duration:REDUCED?0.8:1.5,stagger:0.12,scrollTrigger:{trigger:'.footer',start:'top 65%'}});
 if(window.matchMedia('(pointer: fine)').matches&&!REDUCED){
   document.body.classList.add('has-cursor');
@@ -629,8 +616,6 @@ if(window.matchMedia('(pointer: fine)').matches&&!REDUCED){
 }
 runLoader();
 </script>
-<a href="#hero" class="back-top" id="backTop" aria-label="Back to top">SA</a>
-
 <script>
 setTimeout(function(){
   if(!window.__portfolioBooted){document.body.classList.remove('loading');var l=document.querySelector('.loader');if(l)l.style.display='none';console.warn('[SA] scripts did not boot.');}
