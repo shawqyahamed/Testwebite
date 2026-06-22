@@ -4,131 +4,362 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Shawqy Ahamed</title>
-  <link rel="stylesheet" href="style.css?v=5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@100;200;300&family=Rajdhani:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=JetBrains+Mono:wght@100;200;300&family=Rajdhani:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #1a1b26;
+      --bg-panel:  #1f2030;
+      --bg-card:   #24253a;
+      --border:    rgba(255,255,255,0.07);
+      --text:      #cdd6f4;
+      --text-dim:  #6c7086;
+      --accent:    #4da6ff;
+      --accent2:   #22d3ee;
+      --tag-bg:    rgba(77,166,255,0.1);
+      --tag-border:rgba(77,166,255,0.25);
+      --sidebar-w: 260px;
+      --right-w:   220px;
+      --font:      'Inter', sans-serif;
+      --mono:      'JetBrains Mono', monospace;
+    }
+
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); font-weight: 300; font-size: 14px; line-height: 1.6; display: flex; min-height: 100vh; }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      padding: 2.2rem 1.4rem 1.4rem;
+      z-index: 100;
+    }
+    .sb-profile { text-align: center; padding-bottom: 1.8rem; border-bottom: 1px solid var(--border); }
+    .sb-avatar {
+      width: 90px; height: 90px; border-radius: 50%;
+      border: 2px solid var(--accent2);
+      background: radial-gradient(circle at 40% 35%, #2a2b3d 0%, #111220 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 1.5rem;
+      letter-spacing: 0.12em; color: var(--accent2);
+      box-shadow: 0 0 24px rgba(34,211,238,0.18);
+    }
+    .sb-name { font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 1.05rem; letter-spacing: 0.16em; color: #fff; text-transform: uppercase; margin-bottom: 0.35rem; }
+    .sb-bio { font-size: 0.78rem; color: var(--text-dim); }
+
+    .sb-nav { flex: 1; padding-top: 1.6rem; }
+    .sb-nav a {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.7rem 0.9rem; border-radius: 6px;
+      font-family: 'Rajdhani', sans-serif; font-weight: 400;
+      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-dim); text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 0.15rem;
+    }
+    .sb-nav a:hover, .sb-nav a.active { background: rgba(77,166,255,0.08); color: var(--text); }
+    .sb-nav a svg { width: 15px; height: 15px; opacity: 0.6; flex-shrink: 0; }
+    .sb-nav a.active svg { opacity: 1; }
+
+    .sb-socials { display: flex; gap: 0.75rem; padding-top: 1.4rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .sb-socials a { color: var(--text-dim); transition: color 0.2s; }
+    .sb-socials a:hover { color: var(--accent); }
+    .sb-socials svg { width: 16px; height: 16px; display: block; }
+
+    /* ── MAIN WRAPPER ── */
+    .main-wrap {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(26,27,38,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 2rem;
+    }
+    .topbar-breadcrumb { font-size: 0.8rem; color: var(--text-dim); }
+    .topbar-breadcrumb a { color: var(--text-dim); text-decoration: none; }
+    .topbar-breadcrumb a:hover { color: var(--accent); }
+    .topbar-search {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 0.4rem 0.8rem;
+      color: var(--text-dim); font-size: 0.78rem; font-family: var(--font);
+    }
+    .topbar-search svg { width: 13px; height: 13px; opacity: 0.5; }
+    .topbar-search input { background: none; border: none; outline: none; color: var(--text); font-size: 0.78rem; width: 160px; font-family: var(--font); }
+    .topbar-search input::placeholder { color: var(--text-dim); }
+
+    /* ── CONTENT + RIGHT SIDEBAR ── */
+    .content-row {
+      display: flex;
+      flex: 1;
+      gap: 0;
+    }
+    .posts-area {
+      flex: 1;
+      padding: 2rem 2.5rem;
+      min-width: 0;
+    }
+    .right-sidebar {
+      width: var(--right-w);
+      flex-shrink: 0;
+      padding: 2rem 1.2rem;
+      border-left: 1px solid var(--border);
+    }
+
+    /* ── POST CARDS ── */
+    .post-card {
+      border-bottom: 1px solid var(--border);
+      padding: 1.6rem 0;
+      position: relative;
+    }
+    .post-card:first-child { padding-top: 0; }
+    .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.55rem; font-size: 0.74rem; color: var(--text-dim); }
+    .post-meta svg { width: 12px; height: 12px; opacity: 0.5; }
+    .post-meta .cats { display: flex; gap: 0.5rem; }
+    .post-meta .cats a { color: var(--text-dim); text-decoration: none; }
+    .post-meta .cats a:hover { color: var(--accent); }
+    .pinned-badge {
+      position: absolute; top: 1.6rem; right: 0;
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+      color: var(--accent2); display: flex; align-items: center; gap: 0.3rem;
+    }
+    .pinned-badge svg { width: 11px; height: 11px; }
+    .post-title { font-size: 1.15rem; font-weight: 400; margin-bottom: 0.55rem; }
+    .post-title a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    .post-title a:hover { color: var(--accent2); }
+    .post-excerpt { font-size: 0.84rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 0.8rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .post-footer { display: flex; align-items: center; gap: 1.4rem; font-size: 0.74rem; color: var(--text-dim); }
+    .post-readmore { color: var(--accent); text-decoration: none; font-size: 0.75rem; margin-left: auto; transition: color 0.2s; }
+    .post-readmore:hover { color: var(--accent2); }
+
+    /* ── RIGHT SIDEBAR ── */
+    .rs-title { font-family: 'Rajdhani', sans-serif; font-weight: 500; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 1rem; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .tag-pill {
+      padding: 0.3rem 0.75rem; border-radius: 20px;
+      background: var(--tag-bg); border: 1px solid var(--tag-border);
+      font-size: 0.72rem; color: var(--accent); text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .tag-pill:hover { background: rgba(77,166,255,0.2); border-color: rgba(77,166,255,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) { .right-sidebar { display: none; } }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+      .sidebar.open { transform: translateX(0); }
+      .main-wrap { margin-left: 0; }
+      .topbar { padding: 0.75rem 1rem; }
+      .posts-area { padding: 1.5rem 1rem; }
+      .mobile-toggle { display: flex !important; }
+    }
+    .mobile-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      color: var(--text); padding: 0.25rem;
+    }
+    .mobile-toggle svg { width: 20px; height: 20px; }
+  </style>
 </head>
 <body>
 
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">SA</a>
-      <ul class="nav-links">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="index.html#skills">Skills</a></li>
-        <li><a href="index.html#projects">Projects</a></li>
-        <li><a href="blog.html" class="active">Blog</a></li>
-        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
-      </ul>
-      <button class="burger" aria-label="Menu" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html#about">About</a>
-      <a href="index.html#experience">Experience</a>
-      <a href="index.html#skills">Skills</a>
-      <a href="index.html#projects">Projects</a>
-      <a href="blog.html">Blog</a>
-      <a href="index.html#contact">Contact</a>
-    </div>
+<!-- LEFT SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-profile">
+    <div class="sb-avatar">SA</div>
+    <div class="sb-name">Shawqy Ahamed</div>
+    <div class="sb-bio">Network &amp; Security Engineer</div>
+  </div>
+
+  <nav class="sb-nav">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </a>
+    <a href="blog.html" class="active">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      Blog
+    </a>
+    <a href="blog.html#categories">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+      Categories
+    </a>
+    <a href="blog.html#tags">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>
+      Tags
+    </a>
+    <a href="blog.html#archive">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.53 15.47 0 12.35 0c-1.89 0-3.56.98-4.55 2.44L12 7l-4.2 4.2C7.28 10.48 7 9.76 7 9H5c0 1.44.49 2.77 1.28 3.85L3 16v2h2l3.28-3.28C9.27 15.53 10.58 16 12 16c3.31 0 6-2.69 6-6 0-.47-.11-.91-.18-1.35H20V6z"/></svg>
+      Archives
+    </a>
+    <a href="index.html#about">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      About
+    </a>
   </nav>
 
-  <div class="blog-hero" style="margin-top:64px;">
-    <div class="container">
-      <span class="section-tag">Writing</span>
-      <h1>Blog</h1>
-      <p>Deep dives on network engineering, security architecture, cloud infrastructure, and automation.</p>
+  <div class="sb-socials">
+    <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener" title="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/shawqyahamed" target="_blank" rel="noopener" title="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="mailto:shawqyharis@gmail.com" title="Email">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </a>
+    <a href="index.html" title="Portfolio">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:0.8rem;">
+      <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-breadcrumb"><a href="index.html">Home</a></div>
     </div>
+    <label class="topbar-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search..." id="searchInput" oninput="filterPosts(this.value)" />
+    </label>
   </div>
 
-  <div class="blog-list">
-    <div class="container">
-      <div class="blog-articles">
+  <!-- CONTENT ROW -->
+  <div class="content-row">
 
-        <a href="blog/zero-trust-guide.html" class="blog-article-card">
-          <div class="blog-article-num">01</div>
-          <div class="blog-article-content">
-            <div class="blog-article-tags">
-              <span>Zero Trust</span><span>Security</span><span>Enterprise</span>
-            </div>
-            <div class="blog-article-title">Zero Trust Architecture: A Complete Implementation Guide for Enterprise Networks</div>
-            <div class="blog-article-excerpt">Zero Trust is more than a buzzword — it's a fundamental shift in how we architect security. I walk through the full implementation from identity inventory and data flow mapping to Zscaler ZPA deployment and continuous monitoring.</div>
-            <div class="blog-article-footer">
-              <span class="blog-article-meta">December 2023 &nbsp;·&nbsp; 12 min read</span>
-              <span class="blog-article-cta">Read article →</span>
-            </div>
+    <!-- POSTS -->
+    <main class="posts-area" id="postsArea">
+
+      <article class="post-card" data-tags="zero trust security enterprise">
+        <div class="pinned-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2z"/></svg>
+          Pinned
+        </div>
+        <div class="post-meta">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          Dec 2023
+          <div class="cats">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;opacity:0.5"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.53 15.47 0 12.35 0c-1.89 0-3.56.98-4.55 2.44L12 7l-4.2 4.2C7.28 10.48 7 9.76 7 9H5c0 1.44.49 2.77 1.28 3.85L3 16v2h2l3.28-3.28C9.27 15.53 10.58 16 12 16c3.31 0 6-2.69 6-6 0-.47-.11-.91-.18-1.35H20V6z"/></svg>
+            <a href="#">Security</a><a href="#">Enterprise</a>
           </div>
-        </a>
+        </div>
+        <h2 class="post-title"><a href="blog/zero-trust-guide.html">Zero Trust Architecture: A Complete Implementation Guide for Enterprise Networks</a></h2>
+        <p class="post-excerpt">Zero Trust is more than a buzzword — it's a fundamental shift in how we architect security. I walk through the full implementation from identity inventory and data flow mapping to Zscaler ZPA deployment and continuous monitoring.</p>
+        <div class="post-footer">
+          <span>12 min read</span>
+          <a href="blog/zero-trust-guide.html" class="post-readmore">Read article →</a>
+        </div>
+      </article>
 
-        <a href="blog/future-of-network-security.html" class="blog-article-card">
-          <div class="blog-article-num">02</div>
-          <div class="blog-article-content">
-            <div class="blog-article-tags">
-              <span>Security</span><span>SASE</span><span>Strategy</span>
-            </div>
-            <div class="blog-article-title">The Future of Network Security: Moving Beyond the Perimeter</div>
-            <div class="blog-article-excerpt">The perimeter is dead. Cloud adoption, remote work, and sophisticated adversaries have shattered the old model. I explore why SASE and identity-first security are the only credible path forward for modern enterprises.</div>
-            <div class="blog-article-footer">
-              <span class="blog-article-meta">October 2023 &nbsp;·&nbsp; 8 min read</span>
-              <span class="blog-article-cta">Read article →</span>
-            </div>
+      <article class="post-card" data-tags="security sase strategy">
+        <div class="post-meta">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          Oct 2023
+          <div class="cats">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;opacity:0.5"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.53 15.47 0 12.35 0c-1.89 0-3.56.98-4.55 2.44L12 7l-4.2 4.2C7.28 10.48 7 9.76 7 9H5c0 1.44.49 2.77 1.28 3.85L3 16v2h2l3.28-3.28C9.27 15.53 10.58 16 12 16c3.31 0 6-2.69 6-6 0-.47-.11-.91-.18-1.35H20V6z"/></svg>
+            <a href="#">Security</a><a href="#">SASE</a>
           </div>
-        </a>
+        </div>
+        <h2 class="post-title"><a href="blog/future-of-network-security.html">The Future of Network Security: Moving Beyond the Perimeter</a></h2>
+        <p class="post-excerpt">The perimeter is dead. Cloud adoption, remote work, and sophisticated adversaries have shattered the old model. I explore why SASE and identity-first security are the only credible path forward for modern enterprises.</p>
+        <div class="post-footer">
+          <span>8 min read</span>
+          <a href="blog/future-of-network-security.html" class="post-readmore">Read article →</a>
+        </div>
+      </article>
 
-        <a href="blog/azure-expressroute.html" class="blog-article-card">
-          <div class="blog-article-num">03</div>
-          <div class="blog-article-content">
-            <div class="blog-article-tags">
-              <span>Azure</span><span>Cloud</span><span>BGP</span>
-            </div>
-            <div class="blog-article-title">Optimizing Cloud Connectivity with Azure ExpressRoute</div>
-            <div class="blog-article-excerpt">For latency-sensitive workloads, ExpressRoute is non-negotiable. I cover circuit design for 99.99% availability, active-active BGP configuration, BFD for sub-second failure detection, and FastPath for high-throughput performance.</div>
-            <div class="blog-article-footer">
-              <span class="blog-article-meta">September 2023 &nbsp;·&nbsp; 6 min read</span>
-              <span class="blog-article-cta">Read article →</span>
-            </div>
+      <article class="post-card" data-tags="azure cloud bgp">
+        <div class="post-meta">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          Sep 2023
+          <div class="cats">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;opacity:0.5"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.53 15.47 0 12.35 0c-1.89 0-3.56.98-4.55 2.44L12 7l-4.2 4.2C7.28 10.48 7 9.76 7 9H5c0 1.44.49 2.77 1.28 3.85L3 16v2h2l3.28-3.28C9.27 15.53 10.58 16 12 16c3.31 0 6-2.69 6-6 0-.47-.11-.91-.18-1.35H20V6z"/></svg>
+            <a href="#">Cloud</a><a href="#">BGP</a>
           </div>
-        </a>
+        </div>
+        <h2 class="post-title"><a href="blog/azure-expressroute.html">Optimizing Cloud Connectivity with Azure ExpressRoute</a></h2>
+        <p class="post-excerpt">For latency-sensitive workloads, ExpressRoute is non-negotiable. I cover circuit design for 99.99% availability, active-active BGP configuration, BFD for sub-second failure detection, and FastPath for high-throughput performance.</p>
+        <div class="post-footer">
+          <span>6 min read</span>
+          <a href="blog/azure-expressroute.html" class="post-readmore">Read article →</a>
+        </div>
+      </article>
 
-        <a href="blog/python-ansible-automation.html" class="blog-article-card">
-          <div class="blog-article-num">04</div>
-          <div class="blog-article-content">
-            <div class="blog-article-tags">
-              <span>Automation</span><span>Python</span><span>Ansible</span>
-            </div>
-            <div class="blog-article-title">Automating Network Operations with Python & Ansible</div>
-            <div class="blog-article-excerpt">How I cut 15 hours of weekly manual work down to under 2 hours using Python, Netmiko, NAPALM, and Ansible. Covers configuration templating with Jinja2, automated compliance checking, and building a multi-vendor deployment pipeline.</div>
-            <div class="blog-article-footer">
-              <span class="blog-article-meta">August 2023 &nbsp;·&nbsp; 5 min read</span>
-              <span class="blog-article-cta">Read article →</span>
-            </div>
+      <article class="post-card" data-tags="automation python ansible">
+        <div class="post-meta">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
+          Aug 2023
+          <div class="cats">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;opacity:0.5"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.35C18 2.53 15.47 0 12.35 0c-1.89 0-3.56.98-4.55 2.44L12 7l-4.2 4.2C7.28 10.48 7 9.76 7 9H5c0 1.44.49 2.77 1.28 3.85L3 16v2h2l3.28-3.28C9.27 15.53 10.58 16 12 16c3.31 0 6-2.69 6-6 0-.47-.11-.91-.18-1.35H20V6z"/></svg>
+            <a href="#">Automation</a><a href="#">Python</a>
           </div>
-        </a>
+        </div>
+        <h2 class="post-title"><a href="blog/python-ansible-automation.html">Automating Network Operations with Python &amp; Ansible</a></h2>
+        <p class="post-excerpt">How I cut 15 hours of weekly manual work down to under 2 hours using Python, Netmiko, NAPALM, and Ansible. Covers configuration templating with Jinja2, automated compliance checking, and building a multi-vendor deployment pipeline.</p>
+        <div class="post-footer">
+          <span>5 min read</span>
+          <a href="blog/python-ansible-automation.html" class="post-readmore">Read article →</a>
+        </div>
+      </article>
 
+      <div id="noResults" style="display:none;padding:3rem 0;color:var(--text-dim);font-size:0.85rem;">No posts match your search.</div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="right-sidebar" id="tags">
+      <div class="rs-title">Trending Tags</div>
+      <div class="tag-cloud">
+        <a href="#" class="tag-pill" onclick="filterPosts('zero trust');document.getElementById('searchInput').value='zero trust';return false;">zero trust</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('bgp');document.getElementById('searchInput').value='bgp';return false;">bgp</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('security');document.getElementById('searchInput').value='security';return false;">security</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('cloud');document.getElementById('searchInput').value='cloud';return false;">cloud</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('automation');document.getElementById('searchInput').value='automation';return false;">automation</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('python');document.getElementById('searchInput').value='python';return false;">python</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('sase');document.getElementById('searchInput').value='sase';return false;">sase</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('ansible');document.getElementById('searchInput').value='ansible';return false;">ansible</a>
+        <a href="#" class="tag-pill" onclick="filterPosts('azure');document.getElementById('searchInput').value='azure';return false;">azure</a>
       </div>
-    </div>
+    </aside>
+
   </div>
+</div>
 
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-left">
-        <span class="footer-logo">SA</span>
-        <span>Shawqy Ahamed · Network & Security Engineer</span>
-      </div>
-      <div class="footer-right">
-        <a href="index.html">Home</a>
-        <a href="mailto:shawqyharis@gmail.com">Email</a>
-        <a href="https://github.com/shawqyahamed" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <span>© 2026 Shawqy Ahamed. All rights reserved.</span>
-    </div>
-  </footer>
-
-  <script src="main.js"></script>
+<script>
+function filterPosts(query) {
+  const q = query.toLowerCase().trim();
+  const posts = document.querySelectorAll('.post-card');
+  let visible = 0;
+  posts.forEach(p => {
+    const text = (p.querySelector('.post-title').textContent + ' ' + p.querySelector('.post-excerpt').textContent + ' ' + (p.dataset.tags || '')).toLowerCase();
+    const show = !q || text.includes(q);
+    p.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+}
+</script>
 </body>
 </html>
