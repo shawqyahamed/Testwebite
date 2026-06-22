@@ -221,7 +221,7 @@ section { padding: 6rem 0; }
 
 /* ===== HERO ===== */
 #hero {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,20 +240,56 @@ section { padding: 6rem 0; }
   background-size: 32px 32px, 32px 32px, auto, auto;
   pointer-events: none;
 }
-.hero-content {
-  position: relative;
-  z-index: 1;
-  padding-top: 64px;
+.hero-orb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(6,182,212,0.08) 35%, transparent 70%);
+  right: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+.hero-orb::after {
+  content: '';
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.06) 0%, rgba(6,182,212,0.03) 40%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(60px);
 }
 .hero-status {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   font-weight: 200;
   letter-spacing: 0.2em;
   color: var(--accent);
   text-transform: uppercase;
-  margin-bottom: 1.25rem;
   opacity: 0.8;
+  white-space: nowrap;
+  background: rgba(34,211,238,0.05);
+  border: 1px solid rgba(34,211,238,0.2);
+  padding: 0.35rem 1rem;
+}
+.hero-content {
+  position: absolute;
+  bottom: 4rem;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .hero-eyebrow {
   font-size: 1.05rem;
@@ -263,9 +299,9 @@ section { padding: 6rem 0; }
 }
 .hero-name {
   font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  font-size: clamp(4.5rem, 13vw, 11rem);
   font-weight: 500;
-  line-height: 1.0;
+  line-height: 0.9;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -286,7 +322,7 @@ section { padding: 6rem 0; }
   font-size: 1.08rem;
   color: var(--muted);
   line-height: 1.8;
-  max-width: 520px;
+  max-width: 480px;
   margin-bottom: 2.5rem;
 }
 .hero-certs {
