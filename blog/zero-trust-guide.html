@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zero Trust Architecture Guide — Shawqy Ahamed</title>
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../style.css?v=4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -54,7 +54,7 @@
           <p>Zero Trust is a security model based on the principle of maintaining strict access controls and not trusting anyone by default, even those already inside the network perimeter. It was formalized by John Kindervag at Forrester Research in 2010 and has since become the gold standard for modern enterprise security architecture.</p>
           <p>The core tenets of Zero Trust are: <strong>verify explicitly</strong> (always authenticate and authorize based on all available data points), <strong>use least-privilege access</strong> (limit user access with just-in-time and just-enough-access), and <strong>assume breach</strong> (minimize blast radius and segment access to contain potential breaches).</p>
           <h2>Phase 1: Assessment and Planning</h2>
-          <p>Before deploying any technology, you need a complete picture of your environment. This means cataloguing every identity, mapping all data flows, and understanding your current security posture.</p>
+          <p>Before deploying any technology, you need a complete picture of your environment. This means cataloguing every identity, mapping all data flows, and understanding your current security posture. The biggest mistake organizations make is jumping straight to tooling without completing this foundational work.</p>
           <h3>Identity Inventory</h3>
           <p>Start with Azure AD or your identity provider. Audit all user accounts, especially privileged ones, service accounts, and any legacy accounts that should no longer exist. In most organizations I've worked with, 20–30% of accounts are either stale or over-privileged.</p>
           <ul>
@@ -68,10 +68,10 @@
           <h2>Phase 2: Implementing Zscaler ZPA</h2>
           <p>Zscaler Private Access (ZPA) is the backbone of the ZTNA implementation I've deployed across multiple enterprise environments. Unlike traditional VPN, ZPA provides application-level access rather than network-level access — users connect to specific applications, not the entire network segment.</p>
           <h3>App Connector Deployment</h3>
-          <p>Deploy App Connectors in pairs for redundancy, preferably in different availability zones. Each connector should have outbound HTTPS access to Zscaler's cloud on port 443 — nothing else needs to be opened.</p>
+          <p>Deploy App Connectors in pairs for redundancy, preferably in different availability zones. Each connector should have outbound HTTPS access to Zscaler's cloud on port 443 — nothing else needs to be opened. For Azure environments, deploy connectors in a dedicated subnet with Network Security Groups restricting all inbound traffic.</p>
           <h2>Phase 3: Conditional Access Policies</h2>
           <p>Azure AD Conditional Access is the policy engine that ties everything together. Every access request should be evaluated against your defined conditions: user identity, device compliance status, network location, application sensitivity, and real-time risk signals from Microsoft Defender for Identity.</p>
-          <p>Build your policies in layers. Start with baseline policies (MFA for all users, block legacy authentication, require compliant devices), then add risk-based policies, and finally implement continuous access evaluation.</p>
+          <p>Build your policies in layers. Start with baseline policies (MFA for all users, block legacy authentication, require compliant devices), then add risk-based policies, and finally implement continuous access evaluation for real-time session monitoring.</p>
           <h2>Phase 4: Monitoring and Continuous Validation</h2>
           <p>Zero Trust is not a one-time deployment — it's an ongoing operational discipline. In my implementations, I've integrated Zscaler logs with Microsoft Sentinel to create a unified security operations view. Custom KQL queries detect lateral movement attempts, impossible travel events, and access to sensitive applications outside business hours. Mean time to detect (MTTD) dropped from days to minutes.</p>
           <div class="article-callout">After implementing Zero Trust across 50+ global sites, the single most impactful change was eliminating implicit trust for devices on the corporate network. Even corporate laptops must prove their identity and compliance status on every access request.</div>

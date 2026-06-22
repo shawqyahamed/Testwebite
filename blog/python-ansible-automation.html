@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Python & Ansible Network Automation — Shawqy Ahamed</title>
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../style.css?v=4" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -48,17 +48,17 @@
     <div class="article-body-wrap">
       <div class="container">
         <div class="article-body">
-          <p>Network engineers spend an enormous amount of time on repetitive, error-prone manual tasks: pushing configuration changes to hundreds of devices, collecting interface statistics, verifying ACL consistency, generating compliance reports. When I joined the team, we were spending 15+ hours every week on these tasks. By the time we'd built the automation stack, that number was under 2 hours.</p>
+          <p>Network engineers spend an enormous amount of time on repetitive, error-prone manual tasks: pushing configuration changes to hundreds of devices, collecting interface statistics, verifying ACL consistency, generating compliance reports. When I joined the team, we were spending 15+ hours every week on these tasks. By the time we'd built the automation stack, that number was under 2 hours — and the remaining time was spent reviewing automated outputs, not running commands manually.</p>
           <div class="article-callout">Automation doesn't replace network engineers — it frees them to do the work that actually requires human judgment: design, troubleshooting, and strategic planning.</div>
           <h2>The Automation Stack</h2>
-          <p>The toolchain I settled on: Python with Netmiko for device-level connectivity and configuration push, NAPALM for multi-vendor abstraction and validation, Ansible for orchestrating multi-device workflows and integrating with CI/CD pipelines, and Jinja2 for templating device configurations from structured data.</p>
+          <p>The toolchain I settled on after evaluating several options: Python with Netmiko for device-level connectivity and configuration push, NAPALM for multi-vendor abstraction and validation, Ansible for orchestrating multi-device workflows and integrating with CI/CD pipelines, and Jinja2 for templating device configurations from structured data.</p>
           <h3>Why Netmiko over Paramiko?</h3>
-          <p>Paramiko is the underlying SSH library, but Netmiko wraps it with network-device-specific handling: it knows how to handle Cisco's "More" prompts, Juniper's commit workflow, and device-specific timing requirements. Netmiko handles it out of the box for 50+ network platforms.</p>
+          <p>Paramiko is the underlying SSH library, but Netmiko wraps it with network-device-specific handling: it knows how to handle Cisco's "More" prompts, Juniper's commit workflow, and device-specific timing requirements. Writing this yourself with raw Paramiko is possible but tedious. Netmiko handles it out of the box for 50+ network platforms.</p>
           <h2>Configuration Management with Templates</h2>
-          <p>The most impactful automation we built was configuration templating. Instead of engineers writing device configurations by hand, we built Jinja2 templates for every standard configuration pattern. Network data was stored in YAML files in a Git repository.</p>
-          <p>When a new site needed to be brought up, the engineer updated the YAML data file, ran the Ansible playbook, and the configuration was generated, validated, and pushed to all devices — all in under 10 minutes. The same process previously took a full day of manual work.</p>
+          <p>The most impactful automation we built was configuration templating. Instead of engineers writing device configurations by hand, we built Jinja2 templates for every standard configuration pattern — access switch, distribution switch, WAN router, firewall policy. Network data (VLANs, IP addressing, routing parameters) was stored in YAML files in a Git repository.</p>
+          <p>When a new site needed to be brought up, the engineer updated the YAML data file, ran the Ansible playbook, and the configuration was generated, validated against compliance checks, and pushed to all devices in the site — all in under 10 minutes. The same process previously took a full day of manual work.</p>
           <h2>Automated Compliance Checking</h2>
-          <p>We wrote a Python script that connects to every device in the network, collects the running configuration, and compares it against our defined standards using regular expressions and structured parsing with TextFSM.</p>
+          <p>One of the most valuable automation use cases is compliance validation. We wrote a Python script that connects to every device in the network, collects the running configuration, and compares it against our defined standards using regular expressions and structured parsing with TextFSM. Any device that deviates from the standard generates an alert in our ITSM system.</p>
           <ul>
             <li>NTP server configuration (must use corporate NTP servers)</li>
             <li>SSH version (must be SSHv2 only)</li>
@@ -67,7 +67,7 @@
             <li>SNMP community strings (no default strings, must use SNMPv3)</li>
           </ul>
           <h2>Getting Started</h2>
-          <p>If you're new to network automation, start small. Pick one repetitive task and write a Python script to do it. Once you've seen the value, expand from there. Treat your automation code with the same discipline as application code: version control, code review, and testing.</p>
+          <p>If you're new to network automation, start small. Pick one repetitive task — maybe it's collecting interface error statistics from 20 switches — and write a Python script to do it. Once you've seen the value, expand from there. Treat your automation code with the same discipline as application code: version control, code review, and testing.</p>
           <p>The 15 hours we saved every week compounded into something much larger: fewer configuration errors, faster site deployments, better compliance posture, and a team that had time to think strategically rather than operate reactively.</p>
         </div>
       </div>
